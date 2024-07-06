@@ -18,10 +18,6 @@ export const Filename = {
     manifest: `package.json` as Filename,
     lockfile: `yarn.lock` as Filename,
     virtual: `__virtual__` as Filename,
-    /**
-     * @deprecated
-     */
-    pnpJs: `.pnp.js` as Filename,
     pnpCjs: `.pnp.cjs` as Filename,
     pnpData: `.pnp.data.json` as Filename,
     pnpEsmLoader: `.pnp.loader.mjs` as Filename,
@@ -47,8 +43,7 @@ export interface PortablePathGenerics {
 export interface PathUtils<P extends Path> {
     cwd(): P;
 
-    // We use NoInfer because otherwise TS will infer a wrong
-    // type in ppath.contains, due to PortablePathGenerics
+    //  ts가 추론을 잘못하는 경우가 종종 있어서 NoInfer를 사용함
     join(...paths: Array<NoInfer<P> | Filename>): P;
     resolve(...pathSegments: Array<NoInfer<P> | Filename>): P;
 
